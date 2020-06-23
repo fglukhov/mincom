@@ -43,6 +43,33 @@ var baseUrl = "";
 
 $(document).ready(function() {
 
+	// Close modal
+
+	$(".modal").click(function (e) {
+
+		if ($(this).find(".who-item").length) {
+
+			if (!$(e.target).hasClass("who-item") && !$(e.target).parents().hasClass("who-item")) {
+
+				$(this).modal("hide");
+
+			}
+
+		} else {
+
+			if (!$(e.target).hasClass("modal-content") && !$(e.target).parents().hasClass("modal-content")) {
+
+				$(this).modal("hide");
+
+			}
+
+		}
+
+
+	});
+
+	// Close modal END
+
 	// Ajax modals
 
 	$("[data-toggle='modal'][data-url]").on("click", function () {
@@ -1129,27 +1156,12 @@ function formSuccess(form) {
 	$.fn.autogrow = function() {
 		return this.each(function() {
 			var textarea = this;
-			$.fn.autogrow.resize(textarea);
-			$(textarea).focus(function() {
-				textarea.interval = setInterval(function() {
-					$.fn.autogrow.resize(textarea);
-				}, 500);
-			}).blur(function() {
-				clearInterval(textarea.interval);
+			$(textarea).on("focus keyup input blur", function() {
+				$(textarea).css('height', 'auto').css('height', $(textarea)[0].scrollHeight + 1 + 'px');
 			});
 		});
 	};
-	$.fn.autogrow.resize = function(textarea) {
-		var lineHeight = parseInt($(textarea).css('line-height'), 10);
-		var lines = textarea.value.split('\n');
-		var columns = textarea.cols;
-		var lineCount = 0;
-		$.each(lines, function() {
-			lineCount += Math.ceil(this.length / columns) || 1;
-		});
-		var height = lineHeight * (lineCount) + 13;
-		$(textarea).css('height', height);
-	};
+
 })(jQuery);
 
 function fixedHeader() {
@@ -1483,6 +1495,8 @@ function quiz() {
 	//
 	// });
 
+	$(".poll-form [type=submit]").attr("disabled", true);
+
 	$(".form-checkboxes-required input[type=checkbox]").each(function () {
 
 		if (!$(this).closest(".form-checkboxes-required").find(":checked").length) {
@@ -1548,6 +1562,12 @@ function quiz() {
 			curStep.removeClass("current").hide();
 
 			curStep.nextAll(".active").first().fadeIn(500).addClass("current");
+
+			if ($(".poll-form-step.current [type=submit]").length) {
+
+				$(".poll-form-step.current [type=submit]").attr("disabled", false);
+
+			}
 
 			$(".poll-wrapper .btn-back").attr("disabled",false);
 
@@ -1616,7 +1636,7 @@ function quiz() {
 
 			var quizResult = '';
 
-			$(".poll-form-step.active").not(".last").each(function () {
+			$(".poll-form-step.active").not(".last").find(".poll-question").each(function () {
 
 				var stepTitle = "<h4>" + $(this).find(".h3").html() + "</h4>";
 
@@ -1638,7 +1658,17 @@ function quiz() {
 
 				if (!$(this).find("input[type=checkbox], input[type=radio]").length) {
 
-					stepValue += '<div>' + $(this).find("input[type=text]").val() + '</div>';
+					if ($(this).find("input[type=text]").length) {
+
+						stepValue += '<div>' + $(this).find("input[type=text]").val() + '</div>';
+
+					}
+
+					if ($(this).find("textarea").length) {
+
+						stepValue += '<div>' + $(this).find("textarea").val() + '</div>';
+
+					}
 
 				}
 
@@ -1646,7 +1676,7 @@ function quiz() {
 
 			});
 
-			console.log(quizResult);
+			console.log(quizResult)
 
 			$.ajax({
 				type: "POST",

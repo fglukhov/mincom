@@ -2,7 +2,7 @@
 
 $headers  = 'MIME-Version: 1.0' . "\r\n";
 $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-$headers .= 'From: info@fglukhov.tmweb.ru' . "\r\n";
+$headers .= 'From: office@minsvyazcc.ru' . "\r\n";
 
 
 $body = '

@@ -475,9 +475,6 @@ main table td:last-child {
   margin: 0 0 12px 0;
   padding: 25px 0 0 0; }
 
-.form-group-alt {
-  padding-top: 0; }
-
 .form-group-phone {
   max-width: 300px; }
 
@@ -501,19 +498,11 @@ label.placeholder {
   color: #fff;
   transition: all .3s ease; }
 
-.form-group-alt label.placeholder {
-  opacity: .6;
-  transition: none;
-  top: 0; }
-
 label.placeholder.active {
   font-size: 12px;
   line-height: 20px;
   opacity: .4;
   top: 0px; }
-
-.form-group-alt label.placeholder.active {
-  opacity: 0; }
 
 label.error {
   font-family: 'HelveticaNeueCyr';
@@ -1997,18 +1986,9 @@ ul.acc-partners img {
 
 .poll-step-content h3,
 .poll-step-content .h3 {
-  font-size: 22px;
-  line-height: 30px;
-  margin: 0 0 20px 0; }
-
-.poll-step-content h3.h3-alt,
-.poll-step-content .h3.h3-alt {
   font-size: 50px;
   line-height: 50px;
   margin: 0 0 26px 0; }
-
-.poll-question + .poll-question {
-  margin-top: 40px; }
 
 .poll-form-nav {
   margin: 50px -15px 0 -15px;
