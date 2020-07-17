@@ -140,7 +140,7 @@ $(document).ready(function() {
 		if (!$(this).closest(".faq-item").hasClass("active")) {
 
 			var faqItemActive = $(".faq-item.active"),
-					faqItemCur = $(this).closest(".faq-item");
+				faqItemCur = $(this).closest(".faq-item");
 
 			faqItemActive.removeClass("active");
 			faqItemActive.find(".faq-item-content").show().slideUp("250");
@@ -503,9 +503,9 @@ $(document).ready(function() {
 	$("body").on("click", ".ajax-link", function () {
 
 		var curLink = $(this),
-				curUrl = $(this).data("url"),
-				curTarget = $($(this).data("target")),
-				curSiblings = $(this).closest(".ajax-links").find(".ajax-link");
+			curUrl = $(this).data("url"),
+			curTarget = $($(this).data("target")),
+			curSiblings = $(this).closest(".ajax-links").find(".ajax-link");
 
 		curTarget.addClass("loading");
 
@@ -719,12 +719,12 @@ $(document).ready(function() {
 		if ($("#contactsMap").length) {
 
 			var myMap = new ymaps.Map('contactsMap', {
-					center: [55.753215, 37.622504],
+					center: [55.753413, 37.582134],
 					zoom: 17,
 					controls: ['zoomControl']
 				}, {}),
 
-				myPlacemark = new ymaps.Placemark([55.753215, 37.622504], {
+				myPlacemark = new ymaps.Placemark([55.753413, 37.582134], {
 					hintContent: '',
 					balloonContent: ''
 				}, {
@@ -785,26 +785,26 @@ $(document).ready(function() {
 	// Show more
 
 	$("body").on("click", ".more-link", function () {
-	    var moreLink = $(this),
-	        moreUrl = $(this).attr("href");
-	    if (!moreLink.hasClass("loading")) {
-	        moreLink.addClass("loading");
-	        $.ajax({
-	            url: moreUrl,
-	            dataType: "html"
-	        }).done(function(data) {
-	            moreLink.closest(".more-link-wrapper").before($(data));
-	            moreLink.closest(".more-link-wrapper").remove();
+		var moreLink = $(this),
+			moreUrl = $(this).attr("href");
+		if (!moreLink.hasClass("loading")) {
+			moreLink.addClass("loading");
+			$.ajax({
+				url: moreUrl,
+				dataType: "html"
+			}).done(function(data) {
+				moreLink.closest(".more-link-wrapper").before($(data));
+				moreLink.closest(".more-link-wrapper").remove();
 
-	            if ($(".more-link").closest(".projects-list").length) {
+				if ($(".more-link").closest(".projects-list").length) {
 
-								$(".more-link").closest(".projects-list").find(".project-tmb").css("opacity", "1");
+					$(".more-link").closest(".projects-list").find(".project-tmb").css("opacity", "1");
 
-							}
+				}
 
-	        });
-	    }
-	    return false;
+			});
+		}
+		return false;
 	});
 
 	// Show more END
@@ -1198,7 +1198,7 @@ function childSelects() {
 	$("select[data-parent]").each(function () {
 
 		var childSelect = $(this),
-				parentSelect = $($(this).data("parent"));
+			parentSelect = $($(this).data("parent"));
 
 
 		var childContainer = childSelect.closest(".child-select-container");
@@ -1229,15 +1229,15 @@ function castFilter(castOverWrapper) {
 	console.log(castOverWrapper)
 
 	var castFilter = castOverWrapper.find(".cast-filter"),
-			castItems = castOverWrapper.find(".cast-col"),
-			curLink = castFilter.find(".active"),
-			curDate = curLink.data("date");
+		castItems = castOverWrapper.find(".cast-col"),
+		curLink = castFilter.find(".active"),
+		curDate = curLink.data("date");
 
 
 	castItems.each(function () {
 
 		var datesArr = $(this).data("dates"),
-				curItem = $(this);
+			curItem = $(this);
 
 
 		if (datesArr.indexOf(curDate) >= 0 || curDate == "all") {
@@ -1257,9 +1257,9 @@ function castFilter(castOverWrapper) {
 function stickyBlocks() {
 
 	var stickyPic = $(".sticky-pic"),
-			stickyStart = $(".sticky-start"),
-			stickyStop = $(".sticky-stop"),
-			topOffset = 30;
+		stickyStart = $(".sticky-start"),
+		stickyStop = $(".sticky-stop"),
+		topOffset = 30;
 
 	if (stickyPic.length) {
 
@@ -1296,7 +1296,7 @@ function stickyBlocks() {
 		});
 
 	}
-	
+
 
 	var stickyElements = $(".sticky-block"),
 		topOffset = 30,
@@ -1443,12 +1443,11 @@ function stickyBlocks() {
 
 	});
 
-
 }
 
 function anchorsMenu() {
 
-	$(".anchors-menu a").click(function () {
+	$(".anchors-menu a, a[href='#quiz']").click(function () {
 
 		var curLink = $(this);
 
@@ -1458,7 +1457,7 @@ function anchorsMenu() {
 
 		} else {
 
-			var headerHeight = 0;
+			var headerHeight = 60;
 
 		}
 
@@ -1676,18 +1675,20 @@ function quiz() {
 
 			});
 
-			console.log(quizResult)
+			console.log(quizResult);
+
+			var dataForm = $(this).serializeArray(); // convert form to array
+			dataForm.push({name: 'subject', value: "Цифровой акселератор - результат квиза"});
+			dataForm.push({name: 'email', value: $("#poll_email").val()});
+			dataForm.push({name: 'name', value: $("#poll_company_name").val()});
+			dataForm.push({name: 'company', value: $("#poll_company").val()});
+			dataForm.push({name: 'phone', value: $("#poll_phone").val()});
+			dataForm.push({name: 'quizresult', value: quizResult});
 
 			$.ajax({
 				type: "POST",
 				url: baseUrl + "quiz.php",
-				data: {
-					subject: "Цифровой акселератор - результат квиза",
-					name: $("#poll_name").val(),
-					company: $("#poll_company").val(),
-					phone: $("#poll_phone").val(),
-					quizresult: quizResult
-				}
+				data: $.param(dataForm)
 			}).done(function() {
 
 				formSuccess(form);

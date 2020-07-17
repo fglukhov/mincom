@@ -203,7 +203,7 @@ if ($_POST['email']) {
 */
 // Отправка письма администратору
 
-mail('dmitriikazackii@gmail.com', $_POST['subject'], $body, $headers);
+mail('minsvyazcc.ru', $_POST['subject'], $body, $headers);
 
 //echo $body;
 

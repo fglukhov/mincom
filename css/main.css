@@ -1406,7 +1406,8 @@ ul.navbar-nav a.active {
   height: 80px;
   position: absolute;
   left: 0;
-  top: 0; }
+  top: 40px;
+  white-space: nowrap; }
 
 .section-top-ttl .cont {
   position: absolute;

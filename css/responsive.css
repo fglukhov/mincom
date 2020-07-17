@@ -79,7 +79,9 @@ body {
     transform: scale(0.75); }
   .modal-form h2, .modal-form .h2 {
     font-size: 45px;
-    line-height: 50px; } }
+    line-height: 50px; }
+  .section-top-ttl {
+    top: 80px; } }
 
 @media (max-width: 991px) {
   body,
